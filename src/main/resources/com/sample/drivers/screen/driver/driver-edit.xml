@@ -2,62 +2,77 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://driverEdit.caption"
         focusComponent="form">
-    <data>
-        <instance id="driverDc"
-                  class="com.sample.drivers.entity.Driver">
-            <fetchPlan extends="_base">
-                <property name="license" fetchPlan="_base"/>
-                <property name="documents" fetchPlan="_base"/>
-            </fetchPlan>
-            <loader/>
-            <collection id="documentsDc" property="documents"/>
-        </instance>
-    </data>
-    <facets>
-        <dataLoadCoordinator auto="true"/>
-        <screenSettings id="settingsFacet" auto="true"/>
-    </facets>
-    <actions>
-        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
-                icon="EDITOR_OK"
-                primary="true"
-                shortcut="${COMMIT_SHORTCUT}"/>
-        <action id="windowClose"
-                caption="msg:///actions.Close"
-                icon="EDITOR_CANCEL"/>
-    </actions>
-    <dialogMode height="600"
-                width="800"/>
-    <layout spacing="true" expand="editActions">
-        <form id="form" dataContainer="driverDc">
-            <column width="350px">
-                <textField id="firstNameField" property="firstName"/>
-                <textField id="lastNameField" property="lastName"/>
-                <dateField id="birthDateField" property="birthDate"/>
-                <textField id="licenseNumberField" property="license.number"/>
-                <dateField id="licenseExpiryDateField" property="license.expiryDate"/>
-            </column>
-        </form>
-        <groupBox id="documentsBox" caption="msg://com.sample.drivers.entity/Driver.documents">
-            <table id="documentsTable" dataContainer="documentsDc" width="100%" height="250px">
-                <actions>
-                    <action id="create" type="create"/>
-                    <action id="edit" type="edit"/>
-                    <action id="remove" type="remove"/>
-                </actions>
-                <columns>
-                    <column id="type"/>
-                </columns>
-                <buttonsPanel>
-                    <button action="documentsTable.create"/>
-                    <button action="documentsTable.edit"/>
-                    <button action="documentsTable.remove"/>
-                </buttonsPanel>
-            </table>
-        </groupBox>
-        <hbox id="editActions" spacing="true">
-            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
-            <button id="closeBtn" action="windowClose"/>
-        </hbox>
-    </layout>
+	<data>
+		<instance id="driverDc"
+		          class="com.sample.drivers.entity.Driver">
+			<fetchPlan extends="_base">
+				<property name="license" fetchPlan="_base"/>
+				<property name="documents" fetchPlan="_base"/>
+			</fetchPlan>
+			<loader/>
+			<collection id="documentsDc" property="documents"/>
+		</instance>
+	</data>
+	<facets>
+		<dataLoadCoordinator auto="true"/>
+		<screenSettings id="settingsFacet" auto="true"/>
+	</facets>
+	<actions>
+		<action id="windowCommitAndClose" caption="msg:///actions.Ok"
+		        icon="EDITOR_OK"
+		        primary="true"
+		        shortcut="${COMMIT_SHORTCUT}"/>
+		<action id="windowClose"
+		        caption="msg:///actions.Close"
+		        icon="EDITOR_CANCEL"/>
+	</actions>
+	<dialogMode height="600"
+	            width="800"/>
+	<layout spacing="true" expand="editActions">
+		<hbox spacing="true" expand="form">
+			<form id="form" dataContainer="driverDc">
+				<column width="350px">
+					<textField id="firstNameField" property="firstName"/>
+					<textField id="lastNameField" property="lastName"/>
+					<dateField id="birthDateField" property="birthDate"/>
+					<textField id="licenseNumberField" property="license.number"/>
+					<dateField id="licenseExpiryDateField" property="license.expiryDate"/>
+					<fileUpload id="uploadPhotoField"
+					            permittedExtensions=".jpg,.png"
+					            property="photo"
+					            showClearButton="true"/>
+				</column>
+			</form>
+			<image id="photoField"
+			       dataContainer="driverDc"
+			       property="photo"
+			       height="300px"
+			       width="300px"
+			       scaleMode="CONTAIN"
+			       visible="false"/>
+		</hbox>
+
+
+		<groupBox id="documentsBox" caption="msg://com.sample.drivers.entity/Driver.documents">
+			<table id="documentsTable" dataContainer="documentsDc" width="100%" height="250px">
+				<actions>
+					<action id="create" type="create"/>
+					<action id="edit" type="edit"/>
+					<action id="remove" type="remove"/>
+				</actions>
+				<columns>
+					<column id="type"/>
+				</columns>
+				<buttonsPanel>
+					<button action="documentsTable.create"/>
+					<button action="documentsTable.edit"/>
+					<button action="documentsTable.remove"/>
+				</buttonsPanel>
+			</table>
+		</groupBox>
+		<hbox id="editActions" spacing="true">
+			<button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+			<button id="closeBtn" action="windowClose"/>
+		</hbox>
+	</layout>
 </window>
